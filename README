@@ -1,0 +1,45 @@
+The project presented here was carried out as part of my first year of a Master's degree in Information Mathematics, Cryptography.
+By the end of the school year, we were asked to implement AES using the C programming language.
+At the very least, this implementation had to be capable of encrypting a text (contained in a file) in ECB mode. 
+Nevertheless, we were invited to make a more complete version including AES 192 and 256, as well as various block cipher modes (CBC, GCM...).
+Determined not to do the “bare minimum”, I set about programming this project as early as possible, to give myself more time to implement as many options as possible.
+This also enabled me to reconcile myself with the C programming language. I'd had a lot of trouble with it in the first semester of the same year.
+This implementation therefore includes AES 128, 192 and 256 as well as the ECB, CBC, CFB and GCM encryption modes.
+All encryption algorithms are based on the descriptions given in the standards for these protocols. There is, however, some doubt as to the operation of certain parts of the GCM mode, 
+which will be mentioned later.
+
+The .pdf file at the root of the project is a report on the project in French.  The alice.txt file is a test file to be encrypted.
+
+Here is a more complete description of all the options of this projetc (this is the same as the one in the pdf file) :
+
+From a terminal, once in the right directory, issue the 'make' or 'make all' command to generate all binary files. 
+You can then run the program by typing './AES', followed by the desired options. 
+The following options are available:
+
+-h or - -help: this option displays a list of options, along with a short description of each. 
+The -h help is less comprehensive than the instructions in this document. Putting this option on a command line will not create any encryption 
+and will render all other options useless.
+
+-k KEY or - -key KEY: this option allows the user to supply his private key for encrypting or decrypting text. 
+The KEY argument must be the key in hexadecimal format with no spaces. Binary format is not supported. The argument can be in the form 0xKEY or KEY.
+It is not necessary to specify the size of the key, as the program will deduce it by itself. However, it will return an error if the size is not 128, 192 or 256 bits. 
+This option cannot be used more than once in the same command.
+
+-a AUTH or - -authdata AUTH: this option allows the user to provide 'authentication data' when decrypting or encrypting in GCM mode. 
+The format of the AUTH argument is the same as for KEY, except that it can be of any size, as long as it does not exceed 128 bits. 
+This option cannot be used more than once in the same command.
+
+-g TAG or - -authtag TAG: this option allows the user to supply the authentication tag required for decryption in GCM mode. 
+The format of the TAG argument is the same as for KEY, except that it must be exactly 128 bits long. This option cannot be used more than once in the same command.
+
+-v IV or - -init_vector IV: this option allows the user to provide an initialization vector used for decryption or encryption in CBC, CFB or GCM mode. 
+The format of the IV argument is the same as for AUTH (the size must be exactly 128 bits). This option cannot be used more than once in the same command.
+
+-f NAME or - -filename NAME: this option allows the user to specify the name of the file to be used for encryption or decryption. The NAME argument must be the name of the file (e.g. file.txt).
+
+-m MODE or - -mode MODE: this option allows the user to specify the mode they wish to use for encryption or decryption. MODE must therefore be a character string between EBC, CBC, CFB or GCM. 
+An error will be returned if the argument is not an element from this list. This option cannot be used more than once in the same command.
+
+-c or - -cipher: this option allows the user to indicate that they wishes to perform encryption.
+
+-d or - -d decipher: this option allows the user to indicate that they wishes to e
